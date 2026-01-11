@@ -18,7 +18,8 @@ import java.util.List;
 
 public class FindAllNumbersDisappearedinanArray {
 
-    public static List<Integer> nonOptimalSolution(Integer[] nums) {
+    public static List<Integer> nonOptimalSolution(Integer[] nums) { 
+        // Not working properly for some case like - {1,1}
         boolean[] isAvailable = new boolean[nums.length + 1];
         List<Integer> missing = new ArrayList<>();
 
