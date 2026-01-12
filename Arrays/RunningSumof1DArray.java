@@ -1,6 +1,7 @@
 package Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -21,6 +22,13 @@ import java.util.List;
 
 public class RunningSumof1DArray {
     public static List<Integer> optimalSolution(int[] nums) {
+
+        // If modified original array is allowed
+        // for(int i = 1; i < nums.length; i++) {
+        //         nums[i] += nums[i -1];
+        //     }
+        // System.out.println(Arrays.toString(nums));
+
         List<Integer> sum = new ArrayList<>();
         int currentSum = 0;
 
