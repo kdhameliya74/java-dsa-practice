@@ -12,24 +12,23 @@ package Arrays;
 */
 
 public class MaximumAverageSubarray1 {
-    public static void main(String[] args) {
-        int[] nums = {5};
-        int size = 1;
-        double maxAvg = 0;
-        int pos = 0;
+     public static double nonOptimalSolution(int[] nums, int k) {
+        // brute force, time complexity O(n*k);
+        double maxAvg = Double.NEGATIVE_INFINITY;
 
-        while(pos < nums.length) {
+        for (int i = 0; i <= nums.length - k; i++) {
             double sum = 0;
-            int current = pos;
-            int currentSize = size + pos; 
-            while (current < currentSize && currentSize < nums.length) {
-                sum += nums[current];
-                current++;
+            for (int j = 0; j < k; j++) {
+                sum += nums[i + j];
             }
-            maxAvg = Math.max(maxAvg, sum/size);
-            pos++;
+            maxAvg = Math.max(maxAvg, sum / k);
         }
+        return maxAvg;
+    }
+    public static void main(String[] args) {
+        int[] nums = {1,12,-5,-6,50,3};
+        int size = 4;
 
-        System.out.println(maxAvg);
+        System.out.println(nonOptimalSolution(nums, size));
     }
 }
