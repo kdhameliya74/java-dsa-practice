@@ -11,28 +11,33 @@ package Arrays;
  Space Complexity: O(1)
 */
 
-
 public class LongestSubarrayOf1SAfterDeletingOneElement {
 
     public static void main(String[] args) {
+        int[] nums = { 0, 1, 1, 1, 0, 1, 1, 0, 1 };
         
-        int[] nums = {0,1,1,1,0,1,1,0,1};
+        int left = 0;
+        int zeroCount = 0;
+        int maxLength = 0;
 
-        int end = 0;
-        int encounterZero = 0;
-        
-        for(int i = 0; i < nums.length -1; i++) {
-            if(nums[i] == nums[i+1]) {
-                end++;
-            } else {
-                if (encounterZero != 1) {
-                    encounterZero = 1;
-                }
-                end++;
+        for (int right = 0; right < nums.length; right++) {
+
+            
+            if (nums[right] == 0) {
+                zeroCount++;
             }
+            while (zeroCount > 1) {
+                if (nums[left] == 0) {
+                    zeroCount--;
+                }
+                left++;
+            }
+
+           
+            maxLength = Math.max(maxLength, right - left);
         }
 
-        System.out.println(end);
+        System.out.println(maxLength);
 
     }
 }
