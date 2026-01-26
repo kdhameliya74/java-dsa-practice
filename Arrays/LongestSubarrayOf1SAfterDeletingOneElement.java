@@ -6,6 +6,11 @@ package Arrays;
  Difficulty: Medium
 
  Approach:
+ - Use two pointers (left and right) to create a sliding window.
+ - Expand the window by moving right.
+ - Keep a count of zeros inside the window.
+ - If zeros become more than 1, shrink the window from the left until zeros ≤ 1.
+ - For every valid window, calculate: window length = right - left
 
  Time Complexity: O(n)
  Space Complexity: O(1)
@@ -47,9 +52,9 @@ public class LongestSubarrayOf1SAfterDeletingOneElement {
                 zero++;
             }
 
-            if(zero > 2) {
-                for(int j = zero; j >= 1; j--) {
-                    if(nums[j] == 0) {
+            if(zero > 1) {
+                for(int j = zero; j > 1; j--) {
+                    if(nums[left] == 0) {
                         zero--;
                     }
                     left++;
@@ -65,6 +70,7 @@ public class LongestSubarrayOf1SAfterDeletingOneElement {
 
     public static void main(String[] args) {
         int[] nums = { 0, 1, 1, 1, 0, 1, 1, 0, 1 };
+        int[] nums1 = { 1,1,0,1 };
 
         System.out.println("[1. optimalSolution] -> " + optimalSolution(nums));
         System.out.println("[2. nonOptimalSolution] -> " + nonOptimalSolution(nums));
