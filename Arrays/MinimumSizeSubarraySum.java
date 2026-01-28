@@ -19,6 +19,23 @@ package Arrays;
 
 public class MinimumSizeSubarraySum {
 
+    public static int nonOptimalSolution(int[] nums, int target) {
+        // Time Complexity: O(n^2)
+        int minLen = Integer.MAX_VALUE;
+        
+        for(int left = 0; left < nums.length; left++) {
+            int sum = 0;
+            for(int right = left; right < nums.length; right++) {
+                sum += nums[right];
+                if(sum >= target) {
+                    minLen = Math.min(minLen, right - left + 1);
+                    break;
+                }
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? 0: minLen;
+    } 
+
     public static int optimalSolution(int[] nums, int target) {
         int left = 0;
         int sum = 0;
@@ -40,5 +57,7 @@ public class MinimumSizeSubarraySum {
     public static void main(String[] args) {
         System.out.println("[1. optimalSolution] -> " + optimalSolution(new int[] { 2,3,1,2,4,3 }, 7));
         System.out.println("[2. optimalSolution] -> " + optimalSolution(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 11));
+        System.out.println("[3. nonOptimalSolution] -> " + nonOptimalSolution(new int[] { 2,3,1,2,4,3 }, 7));
+        System.out.println("[4. nonOptimalSolution] -> " + nonOptimalSolution(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 11));
     }
 }
