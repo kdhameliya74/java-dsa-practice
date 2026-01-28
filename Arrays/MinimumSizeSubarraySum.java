@@ -1,15 +1,17 @@
 package Arrays;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  Problem: Minimum Size Subarray Sum
  Link: https://leetcode.com/problems/minimum-size-subarray-sum/
  Difficulty: Medium
 
  Approach:
- - 
+ - Initialize two pointers left and right to represent the window.
+ - Move the right pointer forward and keep adding elements to a running sum.
+ - When the sum becomes greater than or equal to the target, try to shrink the window from the left to find the smallest possible window.
+ - Update the minimum length whenever a valid window is found.
+ - Continue this process until the entire array is processed.
+ - If no subarray meets the condition, return 0.
 
  Time Complexity: O(n)
  Space Complexity: O(1)
@@ -17,69 +19,26 @@ import java.util.List;
 
 public class MinimumSizeSubarraySum {
 
-    public static int nonOptimalSolution(int[] nums, int target) {
-        int sum = 0;
-        List<Integer> elements = new ArrayList<>();
-
-        for (int i = 0; i < nums.length; i++) {
-            if (target == nums[i]) {
-                elements.add(nums[i]);
-                break;
-            } else {
-
-                for (int j = i + 1; j < nums.length; j++) {
-                    elements.clear();
-                    sum = nums[i] + nums[j];
-                    if (target < sum) {
-                        sum = 0;
-                        elements.clear();
-                        break;
-                    }
-                    if (target > sum) {
-                        elements.add(nums[j]);
-                    }
-                    if (target == sum) {
-                        elements.add(nums[i]);
-                        elements.add(nums[j]);
-                    }
-                }
-            }
-
-        }
-        // System.out.println(elements.toString());
-        return elements.size();
-    }
-
     public static int optimalSolution(int[] nums, int target) {
-        List<Integer> elements = new ArrayList<>();
-
-
         int left = 0;
-        int right = nums.length - 1;
+        int sum = 0;
+        int minLen = Integer.MAX_VALUE;
 
-        while (left < right) {
-            
-            if(target == nums[left] + nums[right]) {
-                elements.add(nums[left]);
-                elements.add(nums[right]);
-            }
-            if (target > nums[left] + nums[right]) {
-                right--;
-            }
-            if(left < right) {
-                left++;
-            }
-            if(nums[left] == target || nums[right] == target) {
-                elements.add(1);
-                break;
+        for(int right = 0; right < nums.length; right++) {
+            sum += nums[right];
+            // sum = 0 + 2 = 2 - while false until sum is 8 upto index 3
+            while (sum>=target) {
+                minLen = Math.min(minLen, right - left + 1);
+                sum -= nums[left]; // removing element
+                left++; // shrinkin window
             }
         }
 
-        return elements.size();
+        return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
 
     public static void main(String[] args) {
         System.out.println("[1. optimalSolution] -> " + optimalSolution(new int[] { 2,3,1,2,4,3 }, 7));
-        System.out.println("[2. nonOptimalSolution] -> " + nonOptimalSolution(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 11));
+        System.out.println("[2. optimalSolution] -> " + optimalSolution(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 11));
     }
 }
