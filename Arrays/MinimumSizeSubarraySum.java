@@ -51,53 +51,35 @@ public class MinimumSizeSubarraySum {
     }
 
     public static int optimalSolution(int[] nums, int target) {
-        int sum = 0;
         List<Integer> elements = new ArrayList<>();
-        // 2,3,1,2,4,3
-        // left[0] = 2 right[1] = 3
+
 
         int left = 0;
-        int right = 0;
+        int right = nums.length - 1;
 
-        while (left <= right) {
-            sum += nums[right];
-            if(nums[left] == target) {
+        while (left < right) {
+            
+            if(target == nums[left] + nums[right]) {
                 elements.add(nums[left]);
                 elements.add(nums[right]);
-                break;
             }
-            
-            if(sum < target) {
-                right++;
-            } else {
+            if (target > nums[left] + nums[right]) {
+                right--;
+            }
+            if(left < right) {
                 left++;
             }
+            if(nums[left] == target || nums[right] == target) {
+                elements.add(1);
+                break;
+            }
         }
-
-
-        // for (int right = 0; right < nums.length; right++) {
-        //     sum += nums[right];
-        //     int count = right;
-        //     while (count < nums.length) {
-        //         if(target == sum) {
-        //             elements.add(nums[count], nums[right]);
-        //         } else if(target > sum) {
-        //             count++;
-        //         } else if(target < sum) {
-        //             count = right;
-        //             sum = 0;
-        //         }
-        //     }
-        // }
 
         return elements.size();
     }
 
     public static void main(String[] args) {
-        // target = 7, nums = [2,3,1,2,4,3]
-
-        int[] nums = { 1, 1, 1, 1, 1, 1, 1, 1 };
-        System.out.println("[1. optimalSolution] -> " + optimalSolution(new int[] { 2, 3, 1, 2, 4, 3 }, 7));
-        System.out.println("[2. nonOptimalSolution] -> " + nonOptimalSolution(nums, 11));
+        System.out.println("[1. optimalSolution] -> " + optimalSolution(new int[] { 2,3,1,2,4,3 }, 7));
+        System.out.println("[2. nonOptimalSolution] -> " + nonOptimalSolution(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 11));
     }
 }
