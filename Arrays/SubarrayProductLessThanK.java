@@ -25,24 +25,27 @@ public class SubarrayProductLessThanK {
             }
         }
         return subarray;
+
+        /*
+         * int subarray = 0;
+         * for (int right = 0; right < nums.length; right++) {
+         * int left = right;
+         * int product = 1;
+         * while (left < nums.length) {
+         * product = product * nums[left];
+         * if(product < k) {
+         * subarray++;
+         * }
+         * left++;
+         * }
+         * }
+         * return subarray;
+         * 
+         */
     }
 
     public static int optimalSolution(int[] nums, int k) {
-        int subarray = 0;
-        
-        for (int right = 0; right < nums.length; right++) {
-            int left = right;
-            int product = 1;
-            while (left < nums.length) {
-                product = product * nums[left];
-                if(product < k) {
-                    subarray++;
-                }
-                left++;
-            }
-        }
-
-        return subarray;
+        return 0;
     }
 
     public static void main(String[] args) {
