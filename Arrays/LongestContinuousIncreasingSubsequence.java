@@ -3,10 +3,13 @@ package Arrays;
 /*
  Problem: Longest Continuous Increasing Subsequence
  Link: https://leetcode.com/problems/longest-continuous-increasing-subsequence
- Difficulty: Medium
+ Difficulty: Easy
 
  Approach:
-
+ - Traverse the array once.
+ - If the current element is greater than the previous one, extend the sequence.
+ - Otherwise, reset the length to 1.
+ - Track and return the maximum length found.
 
  Time Complexity: O(n)
  Space Complexity: O(1)
@@ -15,16 +18,25 @@ package Arrays;
 public class LongestContinuousIncreasingSubsequence {
 
     public static int optimalSolution(int[] nums) {
-        int minlen = 1;
-        for (int right = 0; right < nums.length - 1; right++) {
+        // 1, 3, 5, 4, 7
+        // 2, 1, 3, 5, 6
 
-            if(nums[right] < nums[right + 1]) {
-                minlen++;
-            } else if(nums[right] > nums[right + 1]) {
-                minlen = 1;
-            }
+        if (nums == null || nums.length == 0) {
+            return 0;
         }
-        return minlen;
+
+        int maxLen = 1;
+        int current = 1;
+        for (int right = 1; right < nums.length; right++) {
+            if (nums[right] > nums[right - 1]) {
+                current++;
+                maxLen = Math.max(maxLen, current);
+            } else {
+                current = 1;
+            }
+
+        }
+        return maxLen;
     }
 
     public static void main(String[] args) {
