@@ -8,8 +8,16 @@ import java.util.Arrays;
  Difficulty: Medium
 
  Approach:
+  - We use a Difference Array + Prefix Sum technique to efficiently process range updates.
+  - Instead of adding seats to every flight in the range [first, last] for each booking,
+    we:
+        1. Add seats at index (first - 1) to mark where the booking effect starts.
+        2. Subtract seats at index (last) to mark where the booking effect ends.
+        (Only if last < n, to avoid index out of bounds.)
+  - After processing all bookings, we compute the prefix sum of the array.
+  - The prefix sum accumulates all active bookings at each flight index, producing the final number of seats booked per flight.
 
- Time Complexity: O(n + m)
+ Time Complexity: O(n + m) // where m = number of bookings and n = number of flights.
  Space Complexity: O(n)
 */
 
