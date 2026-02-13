@@ -1,6 +1,8 @@
 package Arrays;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -16,10 +18,10 @@ import java.util.Map;
 */
 
 public class MajorityElementII {
-    public static int nonOptimalSolution(int[] nums) {
+    public static String nonOptimalSolution(int[] nums) {
         int n = nums.length;
         Map<Integer, Integer> map = new HashMap<>();
-        int majorElement = 0;
+        List<Integer> elements = new ArrayList<>();
         for (int num : nums) {
             if (map.containsKey(num)) {
                 map.put(num, map.get(num) + 1);
@@ -30,41 +32,28 @@ public class MajorityElementII {
 
         for (int num : map.keySet()) {
             if (map.get(num) > n / 3) {
-                majorElement = num;
+                elements.add(num);
             }
         }
-        return majorElement;
+        return elements.toString();
     }
 
-    public static int optimalSolution(int[] nums) {
-        // Boyer–Moore Code
-        int count = 0;
-        int candidate = 0;
-
+    public static String optimalSolution(int[] nums) {
+        int n = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> elements = new ArrayList<>();
         for (int num : nums) {
-            if (count == 0) {
-                candidate = num;
+            map.put(num, map.getOrDefault(num, 0) + 1);
+
+            if (map.get(num) > n / 3) {
+                elements.add(num);
             }
-
-            count += (num == candidate) ? 1 : -1;
         }
-
-        return candidate;
-
-        // int n = nums.length;
-        // Map<Integer, Integer> map = new HashMap<>();
-        // for (int num : nums) {
-        // map.put(num, map.getOrDefault(num, 0) + 1);
-
-        // if (map.get(num) > n / 3) {
-        // return num;
-        // }
-        // }
-        // return 0;
+        return elements.toString();
     }
 
     public static void main(String[] args) {
-        int[] nums = { 3, 2, 3 };
+        int[] nums = { 3, 2, 2, 4, 1, 4 };
         System.out.println("[1. optimalSolution] -> " + optimalSolution(nums));
         System.out.println("[2. nonOptimalSolution] -> " + nonOptimalSolution(nums));
     }
